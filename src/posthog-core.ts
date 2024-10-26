@@ -68,16 +68,17 @@ import { logger } from './utils/logger'
 import { SessionPropsManager } from './session-props'
 import { isLikelyBot } from './utils/blocked-uas'
 import { extendURLParams, request, SUPPORTS_REQUEST } from './request'
-import { Heatmaps } from './heatmaps'
 import { ScrollManager } from './scroll-manager'
 import { SimpleEventEmitter } from './utils/simple-event-emitter'
-import { Autocapture } from './autocapture'
-import { TracingHeaders } from './extensions/tracing-headers'
 import { ConsentManager } from './consent'
 import { ExceptionObserver } from './extensions/exception-autocapture'
+import { TracingHeaders } from './extensions/tracing-headers'
+import { Heatmaps } from './heatmaps'
+import { Autocapture } from './autocapture'
 import { WebVitalsAutocapture } from './extensions/web-vitals'
 import { WebExperiments } from './web-experiments'
 import { PostHogExceptions } from './posthog-exceptions'
+import { initModules } from './utils/init-modules.js'
 
 /*
 SIMPLE STYLE GUIDE:
@@ -342,17 +343,17 @@ export class PostHog {
      * @param {Object} [config]  A dictionary of config options to override. <a href="https://github.com/posthog/posthog-js/blob/6e0e873/src/posthog-core.js#L57-L91">See a list of default config options</a>.
      * @param {String} [name]    The name for the new posthog instance that you want created
      */
-    init(
+    async init(
         token: string,
         config?: OnlyValidKeys<Partial<PostHogConfig>, Partial<PostHogConfig>>,
         name?: string
-    ): PostHog | undefined {
+    ): Promise<PostHog | undefined> {
         if (!name || name === PRIMARY_INSTANCE_NAME) {
             // This means we are initializing the primary instance (i.e. this)
-            return this._init(token, config, name)
+            return await this._init(token, config, name)
         } else {
             const namedPosthog = instances[name] ?? new PostHog()
-            namedPosthog._init(token, config, name)
+            await namedPosthog._init(token, config, name)
             instances[name] = namedPosthog
             // Add as a property to the primary instance (this isn't type-safe but its how it was always done)
             ;(instances[PRIMARY_INSTANCE_NAME] as any)[name] = namedPosthog
@@ -374,7 +375,7 @@ export class PostHog {
     // IE11 compatible. We could use polyfills, which would make the
     // code a bit cleaner, but will add some overhead.
     //
-    _init(token: string, config: Partial<PostHogConfig> = {}, name?: string): PostHog {
+    async _init(token: string, config: Partial<PostHogConfig> = {}, name?: string): Promise<PostHog> {
         if (isUndefined(token) || isEmptyString(token)) {
             logger.critical(
                 'PostHog was initialized without a token. This likely indicates a misconfiguration. Please check the first argument passed to posthog.init()'
@@ -427,8 +428,10 @@ export class PostHog {
 
         new TracingHeaders(this).startIfEnabledOrStop()
 
-        this.sessionRecording = new SessionRecording(this)
-        this.sessionRecording.startIfEnabledOrStop()
+        const { Heatmaps, SessionRecording, WebVitalsAutocapture } = await initModules(this.config)
+
+        this.sessionRecording = SessionRecording ? new SessionRecording(this) : undefined
+        this.sessionRecording?.startIfEnabledOrStop()
 
         if (!this.config.disable_scroll_properties) {
             this.scrollManager.startMeasuringScrollPosition()
@@ -438,13 +441,13 @@ export class PostHog {
         this.autocapture.startIfEnabled()
         this.surveys.loadIfEnabled()
 
-        this.heatmaps = new Heatmaps(this)
-        this.heatmaps.startIfEnabled()
+        this.heatmaps = Heatmaps ? new Heatmaps(this) : undefined
+        this.heatmaps?.startIfEnabled()
 
-        this.webVitalsAutocapture = new WebVitalsAutocapture(this)
+        this.webVitalsAutocapture = WebVitalsAutocapture ? new WebVitalsAutocapture(this) : undefined
 
         this.exceptionObserver = new ExceptionObserver(this)
-        this.exceptionObserver.startIfEnabled()
+        this.exceptionObserver?.startIfEnabled()
 
         // if any instance on the page has debug = true, we set the
         // global debug to be true

@@ -95,7 +95,7 @@ export class WebVitalsAutocapture {
     private loadScript(cb: () => void): void {
         if (assignableWindow.__PosthogExtensions__?.postHogWebVitalsCallbacks) {
             // already loaded
-            cb()
+            return cb()
         }
         assignableWindow.__PosthogExtensions__?.loadExternalDependency?.(this.instance, 'web-vitals', (err) => {
             if (err) {

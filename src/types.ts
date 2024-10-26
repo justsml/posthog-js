@@ -194,7 +194,7 @@ export interface PostHogConfig {
     request_batching: boolean
     sanitize_properties: ((properties: Properties, event_name: string) => Properties) | null
     properties_string_max_length: number
-    session_recording: SessionRecordingOptions
+    session_recording: SessionRecordingOptions | null
     session_idle_timeout_seconds: number
     mask_all_element_attributes: boolean
     mask_all_text: boolean
