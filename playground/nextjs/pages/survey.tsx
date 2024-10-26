@@ -12,7 +12,7 @@ export default function SurveyForm() {
     }
 
     useEffect(() => {
-        posthog.surveys.getSurveys((surveys: Survey[]) => {
+        posthog.surveys?.getSurveys((surveys: Survey[]) => {
             setSurveys(surveys)
             if (surveys.length > 0) {
                 setSelectedSurvey(surveys[0].id)

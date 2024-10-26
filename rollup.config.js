@@ -69,8 +69,9 @@ const entrypointTargets = entrypoints.map((file) => {
                 dir: `dist/`,
                 entryFileNames: `[format]/[name]/index.js`,
                 chunkFileNames: `[format]/[name]/__[hash].js`,
-                exports: 'named',
                 sourcemap: true,
+                exports: 'named',
+                interop: 'compat',
                 generatedCode: format === 'es' ? 'es2015' : 'es5',
                 format,
                 ...(format === 'iife'
@@ -99,6 +100,7 @@ const typeTargets = entrypoints
                 {
                     dir: path.resolve('./dist'),
                     entryFileNames: file.replace('.es.ts', '.d.ts'),
+                    exports: 'named',
                 },
             ],
             plugins: [

@@ -170,7 +170,7 @@ describe('surveys', () => {
         surveys = new PostHogSurveys(instance)
         instance.surveys = surveys
         // all being squashed into a mock posthog so...
-        instance.getActiveMatchingSurveys = instance.surveys.getActiveMatchingSurveys.bind(instance.surveys)
+        instance.getActiveMatchingSurveys = instance.surveys?.getActiveMatchingSurveys.bind(instance.surveys)
 
         Object.defineProperty(window, 'location', {
             configurable: true,
