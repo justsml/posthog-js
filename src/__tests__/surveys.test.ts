@@ -176,8 +176,7 @@ describe('surveys', () => {
             configurable: true,
             enumerable: true,
             writable: true,
-            // eslint-disable-next-line compat/compat
-            value: new URL('https://example.com'),
+                        value: new URL('https://example.com'),
         })
     })
 
@@ -484,8 +483,7 @@ describe('surveys', () => {
             surveysResponse = {
                 surveys: [surveyWithUrl, surveyWithSelector, surveyWithUrlAndSelector],
             }
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://posthog.com') as unknown as Location
+                        assignableWindow.location = new URL('https://posthog.com') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 expect(data).toEqual([surveyWithUrl])
             })
@@ -500,8 +498,7 @@ describe('surveys', () => {
                 document.body.removeChild(testSelectorEl)
             }
 
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://posthogapp.com') as unknown as Location
+                        assignableWindow.location = new URL('https://posthogapp.com') as unknown as Location
             document.body.appendChild(document.createElement('div')).id = 'foo'
 
             surveys.getActiveMatchingSurveys((data) => {
@@ -525,36 +522,31 @@ describe('surveys', () => {
             }
 
             const originalWindowLocation = assignableWindow.location
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://regex-url.com/test') as unknown as Location
+                        assignableWindow.location = new URL('https://regex-url.com/test') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 expect(data).toEqual([surveyWithRegexUrl])
             })
             assignableWindow.location = originalWindowLocation
 
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://example.com?name=something') as unknown as Location
+                        assignableWindow.location = new URL('https://example.com?name=something') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 expect(data).toEqual([surveyWithParamRegexUrl])
             })
             assignableWindow.location = originalWindowLocation
 
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://app.subdomain.com') as unknown as Location
+                        assignableWindow.location = new URL('https://app.subdomain.com') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 expect(data).toEqual([surveyWithWildcardSubdomainUrl])
             })
             assignableWindow.location = originalWindowLocation
 
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://wildcard.com/something/other') as unknown as Location
+                        assignableWindow.location = new URL('https://wildcard.com/something/other') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 expect(data).toEqual([surveyWithWildcardRouteUrl])
             })
             assignableWindow.location = originalWindowLocation
 
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://example.com/exact') as unknown as Location
+                        assignableWindow.location = new URL('https://example.com/exact') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 expect(data).toEqual([surveyWithExactUrlMatch])
             })
@@ -566,24 +558,21 @@ describe('surveys', () => {
                 surveys: [surveyWithUrlDoesNotContain, surveyWithIsNotUrlMatch, surveyWithUrlDoesNotContainRegex],
             }
 
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://posthog.com') as unknown as Location
+                        assignableWindow.location = new URL('https://posthog.com') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 // returns surveyWithIsNotUrlMatch and surveyWithUrlDoesNotContainRegex because they don't contain posthog.com
                 expect(data).toEqual([surveyWithIsNotUrlMatch, surveyWithUrlDoesNotContainRegex])
             })
             assignableWindow.location = originalWindowLocation
 
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://example.com/exact') as unknown as Location
+                        assignableWindow.location = new URL('https://example.com/exact') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 // returns surveyWithUrlDoesNotContain and surveyWithUrlDoesNotContainRegex because they are not exact matches
                 expect(data).toEqual([surveyWithUrlDoesNotContain, surveyWithUrlDoesNotContainRegex])
             })
             assignableWindow.location = originalWindowLocation
 
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://regex-url.com/test') as unknown as Location
+                        assignableWindow.location = new URL('https://regex-url.com/test') as unknown as Location
             surveys.getActiveMatchingSurveys((data) => {
                 // returns surveyWithUrlDoesNotContain and surveyWithIsNotUrlMatch because they are not regex matches
                 expect(data).toEqual([surveyWithUrlDoesNotContain, surveyWithIsNotUrlMatch])
@@ -643,8 +632,7 @@ describe('surveys', () => {
         })
 
         it('returns surveys that inclusively matches any of the above', () => {
-            // eslint-disable-next-line compat/compat
-            assignableWindow.location = new URL('https://posthogapp.com') as unknown as Location
+                        assignableWindow.location = new URL('https://posthogapp.com') as unknown as Location
             document.body.appendChild(document.createElement('div')).className = 'test-selector'
             surveysResponse = { surveys: [activeSurvey, surveyWithSelector, surveyWithEverything] }
             // activeSurvey returns because there are no restrictions on conditions or flags on it

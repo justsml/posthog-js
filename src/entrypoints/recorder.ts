@@ -102,7 +102,6 @@ function initPerformanceObserver(cb: networkCallback, win: IWindow, options: Req
         })
     })
     // compat checked earlier
-    // eslint-disable-next-line compat/compat
     const entryTypes = PerformanceObserver.supportedEntryTypes.filter((x) =>
         options.performanceEntryTypeToObserve.includes(x)
     )
@@ -245,7 +244,6 @@ function initXhrObserver(cb: networkCallback, win: IWindow, options: Required<Ne
                 const xhr = this as XMLHttpRequest
 
                 // check IE earlier than this, we only initialize if Request is present
-                // eslint-disable-next-line compat/compat
                 const req = new Request(url)
                 const networkRequest: Partial<CapturedNetworkRequest> = {}
                 let start: number | undefined
@@ -370,7 +368,6 @@ function prepareRequest({
     // kudos to sentry javascript sdk for excellent background on why to use Date.now() here
     // https://github.com/getsentry/sentry-javascript/blob/e856e40b6e71a73252e788cd42b5260f81c9c88e/packages/utils/src/time.ts#L70
     // can't start observer if performance.now() is not available
-    // eslint-disable-next-line compat/compat
     const timeOrigin = Math.floor(Date.now() - performance.now())
     // clickhouse can't ingest timestamps that are floats
     // (in this case representing fractions of a millisecond we don't care about anyway)
@@ -451,7 +448,6 @@ function _checkForCannotReadResponseBody({
 
 function _tryReadBody(r: Request | Response): Promise<string> {
     // there are now already multiple places where we're using Promise...
-    // eslint-disable-next-line compat/compat
     return new Promise((resolve, reject) => {
         const timeout = setTimeout(() => resolve('[SessionReplay] Timeout while trying to read body'), 500)
         try {
@@ -521,7 +517,6 @@ function initFetchObserver(
     const restorePatch = patch(win, 'fetch', (originalFetch: typeof fetch) => {
         return async function (url: URL | RequestInfo, init?: RequestInit | undefined) {
             // check IE earlier than this, we only initialize if Request is present
-            // eslint-disable-next-line compat/compat
             const req = new Request(url, init)
             let res: Response | undefined
             const networkRequest: Partial<CapturedNetworkRequest> = {}

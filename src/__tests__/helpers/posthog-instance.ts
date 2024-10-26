@@ -13,8 +13,7 @@ export const createPosthogInstance = async (
     // written, we first create an instance, then call init on it which then
     // creates another instance.
     const posthog = new PostHog()
-    // eslint-disable-next-line compat/compat
-    return await new Promise<PostHog>((resolve) =>
+        return await new Promise<PostHog>((resolve) =>
         posthog.init(
             // Use a random UUID for the token, such that we don't have to worry
             // about collisions between test cases.

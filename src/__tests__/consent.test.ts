@@ -138,8 +138,7 @@ describe('consentManager', () => {
                 _onCapture: onCapture,
             })
             // Wait for the initial $pageview to be captured
-            // eslint-disable-next-line compat/compat
-            await new Promise((r) => setTimeout(r, 10))
+                        await new Promise((r) => setTimeout(r, 10))
             expect(onCapture).toHaveBeenCalledTimes(1)
             expect(onCapture).lastCalledWith('$pageview', expect.anything())
             posthog.opt_in_capturing()
@@ -157,8 +156,7 @@ describe('consentManager', () => {
             expect(onCapture).toHaveBeenCalledWith('$opt_in', expect.anything())
             expect(onCapture).lastCalledWith('$pageview', expect.anything())
             // Wait for the $pageview timeout to be called
-            // eslint-disable-next-line compat/compat
-            await new Promise((r) => setTimeout(r, 10))
+                        await new Promise((r) => setTimeout(r, 10))
             expect(onCapture).toHaveBeenCalledTimes(2)
         })
 
@@ -172,8 +170,7 @@ describe('consentManager', () => {
             expect(onCapture).toHaveBeenCalledWith('$opt_in', expect.anything())
             expect(onCapture).lastCalledWith('$pageview', expect.anything())
             // Wait for the $pageview timeout to be called
-            // eslint-disable-next-line compat/compat
-            await new Promise((r) => setTimeout(r, 10))
+                        await new Promise((r) => setTimeout(r, 10))
             posthog.opt_in_capturing()
             expect(onCapture).toHaveBeenCalledTimes(3)
             expect(onCapture).not.lastCalledWith('$pageview', expect.anything())

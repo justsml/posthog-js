@@ -159,8 +159,7 @@ describe('Web Experimentation', () => {
         const elParent = createTestDocument()
 
         WebExperiments.getWindowLocation = () => {
-            // eslint-disable-next-line compat/compat
-            return new URL(testLocation) as unknown as Location
+                        return new URL(testLocation) as unknown as Location
         }
 
         webExperiment.getWebExperimentsAndEvaluateDisplayLogic(false)
@@ -306,8 +305,7 @@ describe('Web Experimentation', () => {
             const elParent = createTestDocument()
             const original = WebExperiments.getWindowLocation
             WebExperiments.getWindowLocation = () => {
-                // eslint-disable-next-line compat/compat
-                return new URL(
+                                return new URL(
                     'https://example.com/landing-page?__experiment_id=3&__experiment_variant=Signup'
                 ) as unknown as Location
             }

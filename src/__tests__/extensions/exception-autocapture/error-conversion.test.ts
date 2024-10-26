@@ -1,4 +1,3 @@
-/* eslint-disable compat/compat */
 
 import {
     ErrorProperties,

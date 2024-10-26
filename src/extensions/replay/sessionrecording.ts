@@ -253,7 +253,7 @@ export class SessionRecording {
     _forceAllowLocalhostNetworkCapture = false
 
     private get sessionIdleThresholdMilliseconds(): number {
-        return this.instance.config.session_recording.session_idle_threshold_ms || RECORDING_IDLE_THRESHOLD_MS
+        return this.instance.config.session_recording?.session_idle_threshold_ms || RECORDING_IDLE_THRESHOLD_MS
     }
 
     private get rrwebRecord(): rrwebRecord | undefined {
@@ -305,7 +305,7 @@ export class SessionRecording {
     }
 
     private get canvasRecording(): { enabled: boolean; fps: number; quality: number } {
-        const canvasRecording_client_side = this.instance.config.session_recording.captureCanvas
+        const canvasRecording_client_side = this.instance.config.session_recording?.captureCanvas
         const canvasRecording_server_side = this.instance.get_property(SESSION_RECORDING_CANVAS_RECORDING)
 
         const enabled = canvasRecording_client_side?.recordCanvas ?? canvasRecording_server_side?.enabled ?? false
@@ -1028,7 +1028,7 @@ export class SessionRecording {
         }
 
         const eventToSend =
-            this.instance.config.session_recording.compress_events ?? true ? compressEvent(event) : event
+            this.instance.config.session_recording?.compress_events ?? true ? compressEvent(event) : event
         const size = estimateSize(eventToSend)
 
         const properties = {
@@ -1081,7 +1081,7 @@ export class SessionRecording {
     private _maskUrl(url: string): string | undefined {
         const userSessionRecordingOptions = this.instance.config.session_recording
 
-        if (userSessionRecordingOptions.maskNetworkRequestFn) {
+        if (userSessionRecordingOptions?.maskNetworkRequestFn) {
             let networkRequest: NetworkRequest | null | undefined = {
                 url,
             }

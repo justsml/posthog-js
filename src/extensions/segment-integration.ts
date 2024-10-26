@@ -95,8 +95,7 @@ const createSegmentIntegration = (posthog: PostHog): SegmentPlugin => {
         version: '1.0.0',
         isLoaded: () => true,
         // check and early return above
-        // eslint-disable-next-line compat/compat
-        load: () => Promise.resolve(),
+                load: () => Promise.resolve(),
         track: (ctx) => enrichEvent(ctx, ctx.event.event),
         page: (ctx) => enrichEvent(ctx, '$pageview'),
         identify: (ctx) => enrichEvent(ctx, '$identify'),

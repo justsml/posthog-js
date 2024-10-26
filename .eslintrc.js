@@ -14,13 +14,7 @@ const rules = {
     'no-only-tests/no-only-tests': 'error',
 }
 
-const extend = [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'plugin:compat/recommended',
-    'plugin:posthog-js/all',
-]
+const extend = ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier', 'plugin:posthog-js/all']
 
 module.exports = {
     env: {

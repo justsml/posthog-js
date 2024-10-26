@@ -114,8 +114,7 @@ describe('Exception Observer', () => {
             const error = new Error('test error')
             const promiseRejectionEvent = new PromiseRejectionEvent('unhandledrejection', {
                 // this is a test not a browser, so we don't care there's no Promise in IE11
-                // eslint-disable-next-line compat/compat
-                promise: Promise.resolve(),
+                                promise: Promise.resolve(),
                 reason: error,
             })
             window!.onunhandledrejection?.call(window!, promiseRejectionEvent)
@@ -199,8 +198,7 @@ describe('Exception Observer', () => {
             const error = new Error('test error')
             const promiseRejectionEvent = new PromiseRejectionEvent('unhandledrejection', {
                 // this is a test not a browser, so we don't care there's no Promise in IE11
-                // eslint-disable-next-line compat/compat
-                promise: Promise.resolve(),
+                                promise: Promise.resolve(),
                 reason: error,
             })
             window!.onunhandledrejection?.call(window!, promiseRejectionEvent)

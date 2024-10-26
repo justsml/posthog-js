@@ -176,10 +176,10 @@ export class PostHogSurveys {
                     return true
                 }
                 const linkedFlagCheck = survey.linked_flag_key
-                    ? this.instance.featureFlags.isFeatureEnabled(survey.linked_flag_key)
+                    ? this.instance.featureFlags?.isFeatureEnabled(survey.linked_flag_key)
                     : true
                 const targetingFlagCheck = survey.targeting_flag_key
-                    ? this.instance.featureFlags.isFeatureEnabled(survey.targeting_flag_key)
+                    ? this.instance.featureFlags?.isFeatureEnabled(survey.targeting_flag_key)
                     : true
 
                 const hasEvents =
@@ -197,7 +197,7 @@ export class PostHogSurveys {
                 const overrideInternalTargetingFlagCheck = this._canActivateRepeatedly(survey)
                 const internalTargetingFlagCheck =
                     survey.internal_targeting_flag_key && !overrideInternalTargetingFlagCheck
-                        ? this.instance.featureFlags.isFeatureEnabled(survey.internal_targeting_flag_key)
+                        ? this.instance.featureFlags?.isFeatureEnabled(survey.internal_targeting_flag_key)
                         : true
 
                 return (

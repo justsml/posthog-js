@@ -100,8 +100,7 @@ export const isLikelyBot = function (navigator: Navigator | undefined, customBlo
         }
     }
     try {
-        // eslint-disable-next-line compat/compat
-        const uaData = navigator?.userAgentData as NavigatorUAData
+                const uaData = navigator?.userAgentData as NavigatorUAData
         if (uaData?.brands && uaData.brands.some((brandObj) => isBlockedUA(brandObj?.brand, customBlockedUserAgents))) {
             return true
         }

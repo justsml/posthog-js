@@ -138,8 +138,7 @@ export class RetryQueue {
         for (const { requestOptions } of this.queue) {
             try {
                 // we've had send beacon in place for at least 2 years
-                // eslint-disable-next-line compat/compat
-                this.instance._send_request({
+                                this.instance._send_request({
                     ...requestOptions,
                     transport: 'sendBeacon',
                 })

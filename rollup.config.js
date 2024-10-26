@@ -47,10 +47,10 @@ const entrypointTargets = entrypoints.map((file) => {
 
     let format = fileParts[fileParts.length - 1]
     // NOTE: Sadly we can't just use the file extensions as tsc won't compile things correctly
-    if (['cjs', 'es', 'iife'].includes(format)) {
+    if (['cjs', 'es'].includes(format)) {
         fileParts.pop()
     } else {
-        format = 'iife'
+        format = 'es'
     }
 
     const fileName = fileParts.join('.')
@@ -66,8 +66,12 @@ const entrypointTargets = entrypoints.map((file) => {
         input: `src/entrypoints/${file}`,
         output: [
             {
-                file: `dist/${fileName}.js`,
+                dir: `dist/`,
+                entryFileNames: `[format]/[name]/index.js`,
+                chunkFileNames: `[format]/[name]/__[hash].js`,
+                exports: 'named',
                 sourcemap: true,
+                generatedCode: format === 'es' ? 'es2015' : 'es5',
                 format,
                 ...(format === 'iife'
                     ? {

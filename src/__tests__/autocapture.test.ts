@@ -1,5 +1,4 @@
 /// <reference lib="dom" />
-/* eslint-disable compat/compat */
 
 import { Autocapture } from '../autocapture'
 import { shouldCaptureDomEvent } from '../autocapture-utils'
@@ -66,8 +65,7 @@ describe('Autocapture system', () => {
             configurable: true,
             enumerable: true,
             writable: true,
-            // eslint-disable-next-line compat/compat
-            value: new URL('https://example.com'),
+                        value: new URL('https://example.com'),
         })
 
         captureMock = jest.fn()

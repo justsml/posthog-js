@@ -92,8 +92,7 @@ function wrapFetchInCypress({
     badlyBehaved?: boolean
 }) {
     return async function (requestOrURL: URL | RequestInfo, init?: RequestInit | undefined) {
-        // eslint-disable-next-line compat/compat
-        const req = new Request(requestOrURL, init)
+                const req = new Request(requestOrURL, init)
 
         const hasBody = typeof requestOrURL !== 'string' && 'body' in requestOrURL
         if (hasBody) {

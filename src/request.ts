@@ -7,7 +7,6 @@ import { logger } from './utils/logger'
 import { AbortController, fetch, navigator, XMLHttpRequest } from './utils/globals'
 import { gzipSync, strToU8 } from 'fflate'
 
-// eslint-disable-next-line compat/compat
 export const SUPPORTS_REQUEST = !!XMLHttpRequest || !!fetch
 
 const CONTENT_TYPE_PLAIN = 'text/plain'
@@ -116,8 +115,7 @@ const xhr = (options: RequestOptions) => {
 const _fetch = (options: RequestOptions) => {
     const { contentType, body, estimatedSize } = encodePostData(options) ?? {}
 
-    // eslint-disable-next-line compat/compat
-    const headers = new Headers()
+        const headers = new Headers()
     each(options.headers, function (headerValue, headerName) {
         headers.append(headerName, headerValue)
     })

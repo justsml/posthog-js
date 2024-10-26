@@ -14,8 +14,7 @@ const patchFetch = (sessionManager: SessionIdManager): (() => void) => {
     return patch(window, 'fetch', (originalFetch: typeof fetch) => {
         return async function (url: URL | RequestInfo, init?: RequestInit | undefined) {
             // check IE earlier than this, we only initialize if Request is present
-            // eslint-disable-next-line compat/compat
-            const req = new Request(url, init)
+                        const req = new Request(url, init)
 
             addTracingHeaders(sessionManager, req)
 
@@ -45,8 +44,7 @@ const patchXHR = (sessionManager: SessionIdManager): (() => void) => {
                 const xhr = this as XMLHttpRequest
 
                 // check IE earlier than this, we only initialize if Request is present
-                // eslint-disable-next-line compat/compat
-                const req = new Request(url)
+                                const req = new Request(url)
 
                 addTracingHeaders(sessionManager, req)
 

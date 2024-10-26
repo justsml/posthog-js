@@ -38,9 +38,9 @@ export class Decide {
     }
 
     parseDecideResponse(response?: DecideResponse): void {
-        this.instance.featureFlags.setReloadingPaused(false)
+        this.instance.featureFlags?.setReloadingPaused(false)
         // :TRICKY: Reload - start another request if queued!
-        this.instance.featureFlags._startReloadTimer()
+        this.instance.featureFlags?._startReloadTimer()
 
         const errorsLoading = !response
 
@@ -48,7 +48,7 @@ export class Decide {
             !this.instance.config.advanced_disable_feature_flags_on_first_load &&
             !this.instance.config.advanced_disable_feature_flags
         ) {
-            this.instance.featureFlags.receivedFeatureFlags(response ?? {}, errorsLoading)
+            this.instance.featureFlags?.receivedFeatureFlags(response ?? {}, errorsLoading)
         }
 
         if (errorsLoading) {

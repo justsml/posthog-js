@@ -89,8 +89,7 @@ function VisibilityAndClickTracker({
             }
         }
 
-        // eslint-disable-next-line compat/compat
-        const observer = new IntersectionObserver(([entry]) => onIntersect(entry), {
+                const observer = new IntersectionObserver(([entry]) => onIntersect(entry), {
             threshold: 0.1,
             ...options,
         })

@@ -5,8 +5,7 @@ import { uuidv7 } from '../src/uuidv7'
 
 async function shortWait() {
     // no need to worry about ie11 compat in tests
-    // eslint-disable-next-line compat/compat
-    await new Promise<void>((resolve: () => void) => setTimeout(resolve, 500))
+        await new Promise<void>((resolve: () => void) => setTimeout(resolve, 500))
 }
 
 describe('FunctionalTests / Feature Flags', () => {
