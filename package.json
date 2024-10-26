@@ -8,7 +8,7 @@
     "scripts": {
         "start": "pnpm build-react && pnpm build-rollup -w",
         "build": "pnpm build-rollup && pnpm build-react",
-        "build-rollup": "rm -rf lib && tsc -b && rollup -c --bundleConfigAsCjs",
+        "build-rollup": "rm -rf lib/* dist/* && tsc -b && rollup -c --bundleConfigAsCjs",
         "build-react": "cd react; NODE_ENV=dev pnpm i; pnpm build;",
         "lint": "eslint src && eslint cypress",
         "lint:fix": "eslint src --fix && eslint cypress --fix",
@@ -28,8 +28,8 @@
         "check-testcafe-results": "ts-node testcafe/check-testcafe-results.js",
         "run-testcafe-localhost": "node scripts/run-testcafe-localhost.mjs"
     },
-    "main": "dist/main.js",
-    "module": "dist/module.js",
+    "main": "dist/cjs/main.js",
+    "module": "dist/es/module.js",
     "types": "dist/module.d.ts",
     "files": [
         "lib/*",

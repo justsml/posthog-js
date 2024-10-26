@@ -69,6 +69,7 @@ const entrypointTargets = entrypoints.map((file) => {
                 dir: `dist/`,
                 entryFileNames: `[format]/[name]/index.js`,
                 chunkFileNames: `[format]/[name]/__[hash].js`,
+                name: 'posthog',
                 sourcemap: true,
                 exports: 'named',
                 interop: 'compat',
@@ -85,14 +86,14 @@ const entrypointTargets = entrypoints.map((file) => {
                 ...(format === 'cjs' ? { exports: 'auto' } : {}),
             },
         ],
-        plugins: [...pluginsForThisFile, visualizer({ filename: `bundle-stats-${fileName}.html` })],
+        plugins: [...pluginsForThisFile, visualizer({ filename: `./dist/bundle-stats-${fileName}.html` })],
     }
 })
 
 const typeTargets = entrypoints
     .filter((file) => file.endsWith('.es.ts'))
     .map((file) => {
-        const source = `./lib/src/entrypoints/${file.replace('.ts', '.d.ts')}`
+        const source = `./dist/src/entrypoints/${file.replace('.ts', '.d.ts')}`
         /** @type {import('rollup').RollupOptions} */
         return {
             input: source,

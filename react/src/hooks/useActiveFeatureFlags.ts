@@ -9,7 +9,7 @@ export function useActiveFeatureFlags(): string[] | undefined {
     // to a hydration error when using nextjs
 
     useEffect(() => {
-        return client.onFeatureFlags((flags) => {
+        return client.onFeatureFlags((flags: string[]) => {
             setFeatureFlags(flags)
         })
     }, [client])

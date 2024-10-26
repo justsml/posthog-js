@@ -40,13 +40,13 @@ const buildEsm = {
 /**
  * Configuration for the UMD build
  */
-const buildUmd = {
+const buildCjs = {
     external: ['posthog-js', 'react'],
     input: 'src/index.ts',
     output: {
         file: packageJson.main,
         name: 'PosthogReact',
-        format: 'umd',
+        format: 'cjs',
         esModule: false,
         globals: {
             react: 'React',
@@ -55,4 +55,4 @@ const buildUmd = {
     plugins,
 }
 
-export default [buildEsm, buildUmd]
+export default [buildEsm, buildCjs]
